@@ -47,14 +47,14 @@ export function Card({ site, rank }: SiteCardProps) {
     setIsTermsExpanded(!isTermsExpanded)
   }
 
-  const shouldShowSpecialBadge = rank === 1 || rank === 2 || rank === 4 || rank === 7
-  const getSpecialBadgeText = () => {
-    if (rank === 1) return "TOP BRAND"
-    if (rank === 2) return "EXCLUSIVE"
-    if (rank === 4) return "TRENDING"
-    if (rank === 7) return "GROWTH"
-    return ""
+  const badgeByRank: Record<number, string> = {
+    1: "Top pick",
+    2: "Exclusive",
+    4: "Trending",
+    7: "Rising",
   }
+  const specialBadge = badgeByRank[rank]
+  const rankLabel = `#${rank}`
 
   const TermsBlock = ({ className = "", mobile = false }: { className?: string; mobile?: boolean }) => (
     <div
@@ -90,21 +90,18 @@ export function Card({ site, rank }: SiteCardProps) {
       <div className={`hidden lg:block overflow-hidden rounded-xl border border-gold-primary/30 bg-[var(--bg-card)] hover:border-gold-primary/50 transition-all duration-300 ${accentClass} ${cardShadowClass}`}>
         <div className="flex">
           <div className="w-20 xl:w-24 shrink-0 flex flex-col items-center justify-center py-5 bg-[var(--bg-elevated)]/80">
-            <span className="text-[9px] font-semibold uppercase tracking-widest text-white/40 mb-2">Rank</span>
-            <div className={`flex h-14 w-14 xl:h-16 xl:w-16 items-center justify-center rounded-full text-2xl xl:text-3xl tabular-nums ${rankCircleClass}`} aria-hidden>
-              {rank}
+            <div className={`flex h-12 w-12 xl:h-14 xl:w-14 items-center justify-center rounded-xl text-xl xl:text-2xl font-black tabular-nums ${rankCircleClass}`} aria-label={`Rank ${rank}`}>
+              {rankLabel}
             </div>
+            {specialBadge && (
+              <span className={`mt-2 px-2 py-0.5 text-[8px] font-bold uppercase rounded-md ${rank === 1 ? "bg-gold-primary/25 text-gold-primary border border-gold-primary/50" : "bg-white/10 text-white/80 border border-white/20"}`}>
+                {specialBadge}
+              </span>
+            )}
           </div>
 
           <Link href={site.link} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-0 flex items-stretch gap-4 xl:gap-5 py-4 pl-5 pr-5 group/cell">
             <div className={`flex-[0_0_24%] xl:flex-[0_0_26%] flex flex-col rounded-xl bg-white border ${logoBorderClass} p-3 group-hover/cell:border-gold-primary/60 transition-colors`}>
-              {shouldShowSpecialBadge && (
-                <div className="flex justify-center shrink-0 mb-2">
-                  <span className="px-2 py-0.5 text-[7px] font-bold uppercase bg-irish-green/30 text-irish-green-light border border-irish-green/40 rounded-md">
-                    {getSpecialBadgeText()}
-                  </span>
-                </div>
-              )}
               <div className="flex-1 min-h-0 flex items-center justify-center">
                 <img src={site.logo || "/placeholder.svg"} alt={site.name} className="max-h-[4.5rem] xl:max-h-[5rem] w-full object-contain" />
               </div>
@@ -150,16 +147,13 @@ export function Card({ site, rank }: SiteCardProps) {
       <div className={`hidden md:block lg:hidden overflow-hidden rounded-xl border border-gold-primary/25 bg-[var(--bg-card)] transition-all ${accentClass} shadow-[0_4px_20px_rgba(212,175,55,0.1)]`}>
         <div className="flex items-stretch min-h-[140px]">
           <div className="w-16 shrink-0 flex flex-col items-center justify-center py-3 bg-[var(--bg-elevated)]/80">
-            <span className="text-[8px] font-semibold uppercase text-white/40 mb-1">Rank</span>
-            <div className={`flex h-11 w-11 items-center justify-center rounded-full text-xl tabular-nums ${rankCircleClass}`}>{rank}</div>
+            <div className={`flex h-10 w-10 items-center justify-center rounded-lg text-lg font-black tabular-nums ${rankCircleClass}`} aria-label={`Rank ${rank}`}>{rankLabel}</div>
+            {specialBadge && (
+              <span className={`mt-1.5 px-1.5 py-0.5 text-[7px] font-bold uppercase rounded ${rank === 1 ? "bg-gold-primary/25 text-gold-primary border border-gold-primary/50" : "bg-white/10 text-white/80"}`}>{specialBadge}</span>
+            )}
           </div>
           <Link href={site.link} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-stretch min-w-0 group/tab">
             <div className={`flex-[0_0_28%] flex flex-col p-2 border-r border-gold-primary/20 bg-white ${logoBorderClass}`}>
-              {shouldShowSpecialBadge && (
-                <div className="flex justify-center shrink-0 mb-1">
-                  <span className="px-1.5 py-0.5 text-[7px] font-bold uppercase bg-irish-green/30 text-irish-green-light rounded">{getSpecialBadgeText()}</span>
-                </div>
-              )}
               <div className="flex-1 flex items-center justify-center">
                 <img src={site.logo || "/placeholder.svg"} alt={site.name} className="max-h-[3.5rem] w-full object-contain" />
               </div>
@@ -200,15 +194,15 @@ export function Card({ site, rank }: SiteCardProps) {
         <Link href={site.link} target="_blank" rel="noopener noreferrer" className="block active:opacity-95">
           <div className="grid grid-cols-[1fr_1fr] min-h-[168px] sm:min-h-[176px]">
             <div className="relative flex flex-col justify-between py-3 px-3 bg-white border-r border-gold-primary/30">
-              <div className={`absolute left-3 top-3 z-10 flex size-9 sm:size-10 items-center justify-center rounded-full text-sm font-black tabular-nums ${rankCircleClass}`} aria-label={`Rank ${rank}`}>
-                {rank}
-              </div>
-              <div className="flex flex-col items-center justify-center min-h-0 flex-1 pt-8">
-                {shouldShowSpecialBadge && (
-                  <div className="flex justify-center shrink-0 mb-1">
-                    <span className="px-1.5 py-0.5 text-[8px] font-bold uppercase bg-irish-green/30 text-irish-green-light rounded border border-irish-green/40">{getSpecialBadgeText()}</span>
-                  </div>
+              <div className="flex items-center gap-2 shrink-0 mb-1">
+                <div className={`flex size-8 sm:size-9 items-center justify-center rounded-lg text-sm font-black tabular-nums ${rankCircleClass}`} aria-label={`Rank ${rank}`}>
+                  {rankLabel}
+                </div>
+                {specialBadge && (
+                  <span className={`px-1.5 py-0.5 text-[7px] font-bold uppercase rounded ${rank === 1 ? "bg-gold-primary/25 text-gold-primary border border-gold-primary/50" : "bg-white/10 text-gray-700 border border-gold-primary/30"}`}>{specialBadge}</span>
                 )}
+              </div>
+              <div className="flex flex-col items-center justify-center min-h-0 flex-1">
                 <div className="flex-1 flex items-center justify-center min-h-0 w-full">
                   <img src={site.logo || "/placeholder.svg"} alt={site.name} className="h-11 sm:h-12 w-auto max-w-full object-contain" />
                 </div>
