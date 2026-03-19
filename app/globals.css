@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 25% 6%;
+    --foreground: 0 0% 98%;
+    --card: 220 20% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 220 20% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 43 74% 49%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 160 56% 35%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 160 50% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 43 74% 49%;
+    --radius: 0.625rem;
+
+    /* Brand */
+    --gold-primary: rgb(212, 175, 55);
+    --gold-hover: rgb(230, 190, 70);
+    --irish-green: rgb(22, 155, 98);
+    --irish-green-dark: rgb(18, 120, 76);
+    --irish-green-light: rgb(40, 180, 120);
+    --bg-dark: rgb(8, 12, 16);
+    --bg-page: linear-gradient(180deg, #0a0f14 0%, #06090c 40%, #030506 100%);
+    --bg-card: rgb(14, 20, 26);
+    --bg-elevated: rgb(20, 28, 36);
+    --bg-hero: linear-gradient(135deg, rgba(22,155,98,0.15) 0%, transparent 50%, rgba(212,175,55,0.08) 100%);
+    --surface-panel: rgba(14, 20, 26, 0.85);
+    --accent-bar: rgb(22, 155, 98);
+    --accent-bar-gold: rgb(212, 175, 55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply text-foreground antialiased;
+    background: var(--bg-page);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+}
+
+.bg-gold-primary {
+  background-color: var(--gold-primary);
+}
+
+.bg-gold-hover:hover {
+  background-color: var(--gold-hover);
+}
+
+.text-gold-primary {
+  color: var(--gold-primary);
+}
+
+.border-gold-primary {
+  border-color: var(--gold-primary);
+}
+
+.bg-irish-green {
+  background-color: var(--irish-green);
+}
+
+.bg-irish-green-dark {
+  background-color: var(--irish-green-dark);
+}
+
+.text-irish-green {
+  color: var(--irish-green);
+}
+
+.text-irish-green-light {
+  color: var(--irish-green-light);
+}
+
+.border-irish-green {
+  border-color: var(--irish-green);
+}
+
+.font-hero-display {
+  font-family: var(--font-hero-display), system-ui, sans-serif;
+}
+
+/* Card accent bar */
+.card-accent-gold {
+  border-left: 4px solid var(--accent-bar-gold);
+}
+
+.card-accent-green {
+  border-left: 4px solid var(--accent-bar);
+}
